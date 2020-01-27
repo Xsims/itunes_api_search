@@ -45,5 +45,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* [Flutter Furniture App Concept](https://github.com/JideGuru/FlutterFurnitureAppUI)
-
+* [Successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
+* [Fetching Data with Flutter](https://flutter.dev/docs/cookbook/networking/fetch-data)
+* [Json to Dart](https://javiercbk.github.io/json_to_dart/)
