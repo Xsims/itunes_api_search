@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:itunes_api_search/models/api_result.dart';
 
+import 'models/product.dart';
+
 Future<ApiResult> fetchApiResult(http.Client client) async {
   final response =
-  await client.get('https://itunes.apple.com/search?term=jack+johnson');
+      await client.get('https://itunes.apple.com/search?term=jack+johnson');
   if (response.statusCode == 200) {
     // If server returns an OK response, parse the JSON.
     return ApiResult.fromJson(json.decode(response.body));
@@ -17,6 +19,8 @@ Future<ApiResult> fetchApiResult(http.Client client) async {
     throw Exception('Failed to load post');
   }
 }
+
+
 
 void main() => runApp(MyApp());
 
@@ -70,9 +74,44 @@ class ProductsList extends StatelessWidget {
       ),
       itemCount: apiResult.resultCount,
       itemBuilder: (context, index) {
-        // Download and display image with the thumbnail's url
-        return Image.network(apiResult.products[index].artworkUrl100);
-      },
+        return ListTile(
+          leading: Image.network(apiResult.products[index].artworkUrl100),
+          title: Text(apiResult.products[index].trackName),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    DetailScreen(product: apiResult.products[index]),
+              ),
+            );
+            // Download and display image with the thumbnail's url
+            //return Image.network(apiResult.products[index].artworkUrl100);
+          },
+        );
+      }
+    );
+  }
+}
+
+class DetailScreen extends StatelessWidget {
+  // Declare a field that holds the Todo.
+  final Product product;
+
+  // In the constructor, require a Todo.
+  DetailScreen({Key key, @required this.product}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Use the Todo to create the UI.
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(product.trackName),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Text(product.collectionName),
+      ),
     );
   }
 }
