@@ -19,7 +19,9 @@ flutter run
 ```
 
 ## ScreenShots
-
+![Main Screen](screenshots/main.jpg)
+![Result Screen](screenshots/list.jpg)
+![Details Screen](screenshots/detail.jpg)
 
 ## Deployment
 
