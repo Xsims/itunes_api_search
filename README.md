@@ -19,9 +19,7 @@ flutter run
 ```
 
 ## ScreenShots
-![Main Screen](screenshots/main.jpg)
-![Result Screen](screenshots/list.jpg)
-![Details Screen](screenshots/detail.jpg)
+<img src="screenshots/main.jpg" alt="Kitten" title="Main Screen" width="250" hspace="20"/><img src="screenshots/list.jpg" alt="Kitten" title="Main Screen" width="250" hspace="20"/><img src="screenshots/detail.jpg" alt="Kitten" title="Main Screen" width="250" hspace="20"/>
 
 ## Deployment
 
