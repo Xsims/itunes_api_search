@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:itunes_api_search/models/product.dart';
 
 class DetailScreen extends StatelessWidget {
+
   // Declare a field that holds the Product.
   final Product product;
+  final Image image;
 
   // In the constructor, require a Product.
-  DetailScreen({Key key, @required this.product}) : super(key: key);
+  DetailScreen({Key key, @required this.product, this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
