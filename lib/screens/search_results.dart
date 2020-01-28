@@ -10,7 +10,8 @@ import 'details.dart';
 Future<ApiResult> fetchApiResult(http.Client client, String keyword) async {
   final keywordWithoutSpace = keyword.replaceAll(RegExp(' '), '+');
   final response = await client.get(
-      'https://itunes.apple.com/search?term=${keywordWithoutSpace.toLowerCase()}');
+      'https://itunes.apple.com/search?country=FR&term=${keywordWithoutSpace
+          .toLowerCase()}');
   if (response.statusCode == 200) {
     // If server returns an OK response, parse the JSON.
     return ApiResult.fromJson(json.decode(response.body));
@@ -55,63 +56,90 @@ class MyHomePage extends StatelessWidget {
 
 class ProductsList extends StatelessWidget {
   final ApiResult apiResult;
+  Map<String, IconData> iconMapping = {
+    'song': Icons.music_note,
+    'feature-movie': Icons.local_movies,
+    'default value': Icons.error
+  };
 
   ProductsList({Key key, this.apiResult}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: 3,
-          crossAxisSpacing: 3,
-          crossAxisCount: 2,
-        ),
-        itemCount: apiResult.resultCount,
-        itemBuilder: (context, index) {
-          return GridTile(
-            // Download and display image with the thumbnail's url
-            child: new InkResponse(
-              child: Hero(
-                child: Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image:
-                          Image.network(apiResult.products[index].artworkUrl100)
+    return OrientationBuilder(builder: (context, orientation)
+    {
+      return GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            mainAxisSpacing: 3,
+            crossAxisSpacing: 3,
+            crossAxisCount: (orientation == Orientation.portrait) ? 3 : 5,
+          ),
+          itemCount: apiResult.resultCount,
+          itemBuilder: (context, index) {
+            return GridTile(
+              // Download and display image with the thumbnail's url
+                child: new InkResponse(
+                  child: Hero(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.7),
+                        image: DecorationImage(
+                          image: Image
+                              .network(
+                            apiResult.products[index].artworkUrl100,
+                          )
                               .image,
-                      colorFilter: new ColorFilter.mode(
-                          Colors.black.withOpacity(0.4), BlendMode.darken),
-                      fit: BoxFit.cover,
+                          colorFilter: new ColorFilter.mode(
+                              Colors.black.withOpacity(0.4), BlendMode.darken),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
+                    tag: 'image_hero$index',
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            DetailScreen(
+                              product: apiResult.products[index],
+                              image: Image.network(
+                                  apiResult.products[index].artworkUrl100),
+                              index: index,
+                            ),
+                      ),
+                    );
+                  },
+                ),
+                footer: Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Hero(
+                    child: Text(
+                      apiResult.products[index].trackName ?? 'default value',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    tag: 'name_hero$index',
                   ),
                 ),
-                tag: 'image_hero$index',
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetailScreen(
-                      product: apiResult.products[index],
-                      image: Image.network(
-                          apiResult.products[index].artworkUrl100),
-                      index: index,
-                    ),
-                  ),
-                );
-              },
-            ),
-            footer: Hero(
-              child: Text(
-                apiResult.products[index].trackName,
-                style: TextStyle(color: Colors.white),
-              ),
-              tag: 'name_hero$index',
-            ),
-            header: Text(
-              apiResult.products[index].kind,
-              style: TextStyle(color: Colors.white),
-            ),
-          );
-        });
+                header: Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                            '\$' +
+                                apiResult.products[index].trackPrice
+                                    .toString() ??
+                                'default value',
+                            style: TextStyle(color: Colors.white)),
+                        Icon(
+                            iconMapping[apiResult.products[index].kind ??
+                                'default value'],
+                            color: Colors.white)
+                      ]),
+                ));
+          });
+    });
   }
 }

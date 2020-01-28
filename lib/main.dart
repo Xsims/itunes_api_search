@@ -3,6 +3,9 @@ import 'screens/search_results.dart';
 
 void main() => runApp(MaterialApp(
       title: 'Itunes Api Search',
+      theme: ThemeData(
+        primaryColor: Colors.purple,
+      ),
       home: MyApp(),
     ));
 
@@ -22,9 +25,7 @@ class MyApp extends StatelessWidget {
               hintText: "Search",
               prefixIcon: IconButton(
                   icon: Icon(Icons.arrow_back, color: Colors.black),
-                  onPressed: () {
-
-                  }),
+                  onPressed: () {}),
               suffixIcon: IconButton(
                   icon: Icon(Icons.clear, color: Colors.black),
                   onPressed: () {
