@@ -19,7 +19,7 @@ flutter run
 ```
 
 ## ScreenShots
-<img src="screenshots/main.jpg" alt="Kitten" title="Main Screen" width="250" hspace="20"/><img src="screenshots/list.jpg" alt="Kitten" title="Main Screen" width="250" hspace="20"/><img src="screenshots/detail.jpg" alt="Kitten" title="Main Screen" width="250" hspace="20"/>
+<img src="screenshots/main.JPG" alt="Kitten" title="Main Screen" width="250" hspace="20"/><img src="screenshots/list.JPG" alt="Kitten" title="Main Screen" width="250" hspace="20"/><img src="screenshots/detail.JPG" alt="Kitten" title="Main Screen" width="250" hspace="20"/>
 
 ## Deployment
 
