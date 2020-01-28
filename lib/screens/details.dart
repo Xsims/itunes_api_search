@@ -19,7 +19,6 @@ class DetailScreen extends StatefulWidget {
 
 class DetailScreenState extends State<DetailScreen> {
   // Declare a field that holds the Product.
-  Completer<WebViewController> _controller = Completer<WebViewController>();
   Product product;
   Image image;
   int index;
@@ -59,9 +58,9 @@ class DetailScreenState extends State<DetailScreen> {
                   centerTitle: true,
                   title: Hero(
                     child: Text(
-                        product.trackName.length < 35
+                        product.trackName.length < 25
                             ? product.trackName
-                            : product.trackName.substring(0, 34) + '...',
+                            : product.trackName.substring(0, 24) + '...',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: Colors.white,
@@ -97,17 +96,49 @@ class DetailScreenState extends State<DetailScreen> {
             ),
           ];
         },
-        body: Column(crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(product.trackName ?? 'default value',
-                overflow: TextOverflow.ellipsis),
-            Text(product.artistName ?? 'default value'),
-          ]),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(product.primaryGenreName ?? 'default value'),
-            Text('\$' + product.trackPrice.toString() ?? 'default value'),
-          ]),
+        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: RichText(
+                      overflow: TextOverflow.fade,
+                      strutStyle: StrutStyle(fontSize: 12.0),
+                      text: TextSpan(
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontStyle: FontStyle.italic,
+                              fontSize: 24.0,
+                              decoration: TextDecoration.none),
+                          text: product.trackName ?? 'default value'),
+                    ),
+                  ),
+                  Flexible(
+                    child: RichText(
+                        overflow: TextOverflow.fade,
+                        strutStyle: StrutStyle(fontSize: 12.0),
+                        text: TextSpan(
+                            style: TextStyle(
+                                color: Colors.black,
+                                decoration: TextDecoration.none),
+                            text:'par ' + product.artistName ?? 'default value'),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                ]),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(product.primaryGenreName ?? 'default value',
+                      style: TextStyle(color: Colors.black38)),
+                  Text('\$' + product.trackPrice.toString() ?? 'default value'),
+                ]),
+          ),
           ListView.builder(
             shrinkWrap: true,
             itemCount: 1,
@@ -121,7 +152,8 @@ class DetailScreenState extends State<DetailScreen> {
                         .evaluateJavascript(
                             "document.documentElement.scrollHeight;"));
                     setState(() {
-                      _heights[index] = height + 180;
+                      _heights[index] =
+                          product.kind == 'song' ? height + 300 : height + 149;
                     });
                   },
                   javascriptMode: JavascriptMode.unrestricted,
@@ -131,6 +163,20 @@ class DetailScreenState extends State<DetailScreen> {
                 ),
               );
             },
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+              product.longDescription == null ? '': 'Description',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  decoration: TextDecoration.none),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text(product.longDescription ?? ''),
           ),
         ]),
       ),

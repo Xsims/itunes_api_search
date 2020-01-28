@@ -34,6 +34,8 @@ class Product {
   String primaryGenreName;
   bool isStreamable;
   String collectionArtistName;
+  String longDescription;
+  String shortDescription;
 
   Product({this.wrapperType,
     this.kind,
@@ -66,7 +68,9 @@ class Product {
     this.currency,
     this.primaryGenreName,
     this.isStreamable,
-    this.collectionArtistName});
+    this.collectionArtistName,
+    this.longDescription,
+  this.shortDescription});
 
   Product.fromJson(Map<String, dynamic> json) {
     wrapperType = json['wrapperType'];
@@ -101,6 +105,8 @@ class Product {
     primaryGenreName = json['primaryGenreName'];
     isStreamable = json['isStreamable'];
     collectionArtistName = json['collectionArtistName'];
+    longDescription = json['longDescription'];
+    shortDescription = json['shortDescription'];
   }
 
   Map<String, dynamic> toJson() {

@@ -72,7 +72,7 @@ class ProductsList extends StatelessWidget {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             mainAxisSpacing: 3,
             crossAxisSpacing: 3,
-            crossAxisCount: (orientation == Orientation.portrait) ? 3 : 5,
+            crossAxisCount: (orientation == Orientation.portrait) ? 2 : 4,
           ),
           itemCount: apiResult.resultCount,
           itemBuilder: (context, index) {
