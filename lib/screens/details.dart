@@ -140,11 +140,14 @@ class DetailScreenState extends State<DetailScreen> {
                         'default value'),
                   ]),
             ),
-            Container(
-              height: _height ?? 170.0,
-              child: WebView(
-                initialUrl: product.previewUrl,
-                javascriptMode: JavascriptMode.unrestricted,
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 30, 0, 20),
+              child: Container(
+                height: _height ?? 170.0,
+                child: WebView(
+                  initialUrl: product.previewUrl,
+                  javascriptMode: JavascriptMode.unrestricted,
+                ),
               ),
             ),
             Padding(
