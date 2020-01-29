@@ -93,71 +93,76 @@ class DetailScreenState extends State<DetailScreen> {
             ),
           ];
         },
-        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: RichText(
-                      overflow: TextOverflow.fade,
-                      strutStyle: StrutStyle(fontSize: 12.0),
-                      text: TextSpan(
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontStyle: FontStyle.italic,
-                              fontSize: 24.0,
-                              decoration: TextDecoration.none),
-                          text: product.trackName ?? 'default value'),
+        body: SingleChildScrollView(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: RichText(
+                        overflow: TextOverflow.fade,
+                        strutStyle: StrutStyle(fontSize: 12.0),
+                        text: TextSpan(
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontStyle: FontStyle.italic,
+                                fontSize: 24.0,
+                                decoration: TextDecoration.none),
+                            text: product.trackName ?? 'default value'),
+                      ),
                     ),
-                  ),
-                  Flexible(
-                    child: RichText(
-                      overflow: TextOverflow.fade,
-                      strutStyle: StrutStyle(fontSize: 12.0),
-                      text: TextSpan(
-                          style: TextStyle(
-                              color: Colors.black,
-                              decoration: TextDecoration.none),
-                          text: 'par ' + product.artistName ?? 'default value'),
-                      textAlign: TextAlign.right,
+                    Flexible(
+                      child: RichText(
+                        overflow: TextOverflow.fade,
+                        strutStyle: StrutStyle(fontSize: 12.0),
+                        text: TextSpan(
+                            style: TextStyle(
+                                color: Colors.black,
+                                decoration: TextDecoration.none),
+                            text:
+                                'par ' + product.artistName ?? 'default value'),
+                        textAlign: TextAlign.right,
+                      ),
                     ),
-                  ),
-                ]),
-          ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(product.primaryGenreName ?? 'default value',
-                      style: TextStyle(color: Colors.black38)),
-                  Text('\$' + product.trackPrice.toString() ?? 'default value'),
-                ]),
-          ),
-          Container(
-            height: _height ?? 170.0,
-            child: WebView(
-              initialUrl: product.previewUrl,
-              javascriptMode: JavascriptMode.unrestricted,
+                  ]),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Text(
-              product.longDescription == null ? '' : 'Description',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20.0,
-                  decoration: TextDecoration.none),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(product.primaryGenreName ?? 'default value',
+                        style: TextStyle(color: Colors.black38)),
+                    Text('\$' + product.trackPrice.toString() ??
+                        'default value'),
+                  ]),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Text(product.longDescription ?? ''),
-          ),
-        ]),
+            Container(
+              height: _height ?? 170.0,
+              child: WebView(
+                initialUrl: product.previewUrl,
+                javascriptMode: JavascriptMode.unrestricted,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Text(
+                product.longDescription == null ? '' : 'Description',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20.0,
+                    decoration: TextDecoration.none),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Text(product.longDescription ?? ''),
+            ),
+          ]),
+        ),
       ),
     );
   }

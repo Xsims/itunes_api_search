@@ -117,7 +117,8 @@ class ProductsList extends StatelessWidget {
                   child: Hero(
                     child: Text(
                       apiResult.products[index].trackName ?? 'default value',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white,
+                      decoration: TextDecoration.none),
                     ),
                     tag: 'name_hero$index',
                   ),
